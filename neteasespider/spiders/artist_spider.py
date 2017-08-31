@@ -14,22 +14,22 @@ class ArtistSpider(scrapy.Spider):
 
     categories = [
         ('华语男歌手', 'zh', 'M', 'http://music.163.com/#/discover/artist/cat?id=1001'),
-        # ('华语女歌手', 'zh', 'F', 'http://music.163.com/#/discover/artist/cat?id=1002'),
-        # ('华语组合', 'zh', 'D', 'http://music.163.com/#/discover/artist/cat?id=1003'),
-        # ('欧美男歌手', 'west', 'M', 'http://music.163.com/#/discover/artist/cat?id=2001'),
-        # ('欧美女歌手', 'west', 'F', 'http://music.163.com/#/discover/artist/cat?id=2002'),
-        # ('欧美组合', 'west', 'D', 'http://music.163.com/#/discover/artist/cat?id=2003'),
-        # ('日本男歌手', 'jp', 'M', 'http://music.163.com/#/discover/artist/cat?id=6001'),
-        # ('日本女歌手', 'jp', 'F', 'http://music.163.com/#/discover/artist/cat?id=6002'),
-        # ('日本组合', 'jp', 'D', 'http://music.163.com/#/discover/artist/cat?id=6003'),
-        # ('韩国男歌手', 'kr', 'M', 'http://music.163.com/#/discover/artist/cat?id=7001'),
-        # ('韩国女歌手', 'kr', 'F', 'http://music.163.com/#/discover/artist/cat?id=7002'),
-        # ('韩国组合', 'kr', 'D', 'http://music.163.com/#/discover/artist/cat?id=7003'),
+        ('华语女歌手', 'zh', 'F', 'http://music.163.com/#/discover/artist/cat?id=1002'),
+        ('华语组合', 'zh', 'D', 'http://music.163.com/#/discover/artist/cat?id=1003'),
+        ('欧美男歌手', 'west', 'M', 'http://music.163.com/#/discover/artist/cat?id=2001'),
+        ('欧美女歌手', 'west', 'F', 'http://music.163.com/#/discover/artist/cat?id=2002'),
+        ('欧美组合', 'west', 'D', 'http://music.163.com/#/discover/artist/cat?id=2003'),
+        ('日本男歌手', 'jp', 'M', 'http://music.163.com/#/discover/artist/cat?id=6001'),
+        ('日本女歌手', 'jp', 'F', 'http://music.163.com/#/discover/artist/cat?id=6002'),
+        ('日本组合', 'jp', 'D', 'http://music.163.com/#/discover/artist/cat?id=6003'),
+        ('韩国男歌手', 'kr', 'M', 'http://music.163.com/#/discover/artist/cat?id=7001'),
+        ('韩国女歌手', 'kr', 'F', 'http://music.163.com/#/discover/artist/cat?id=7002'),
+        ('韩国组合', 'kr', 'D', 'http://music.163.com/#/discover/artist/cat?id=7003'),
     ]
 
     def start_requests(self):
         for i in self.categories:
-            for j in range(65, 66):
+            for j in range(65, 91):
                 # 获得A-Z歌手信息
                 url = '%s&initial=%d' % (i[3], j)
                 yield Request(url,
