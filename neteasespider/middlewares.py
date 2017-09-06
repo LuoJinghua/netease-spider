@@ -11,13 +11,13 @@ from scrapy import signals
 from scrapy.downloadermiddlewares.useragent import UserAgentMiddleware
 from scrapy.http import HtmlResponse
 from selenium import webdriver
-
+import logging
 
 class JavaScriptMiddleware(object):
     rendered_by_js = set(['artist', 'album', 'album_info'])
 
     def process_request(self, request, spider):
-        if spider.name == "artists_spider" and request.meta.get('type', None) in self.rendered_by_js:
+        if request.meta.get('type', None) in self.rendered_by_js:
             driver = webdriver.PhantomJS()  # 指定使用的浏览器
             driver.get(request.url)
             driver.switch_to.frame(driver.find_element_by_xpath("//iframe"))
@@ -34,6 +34,7 @@ class RotateUserAgentMiddleware(UserAgentMiddleware):
         UA = random.choice(self.user_agent_list)
         if UA:
             request.headers.setdefault('User-Agent', UA)
+        request.headers.setdefault('Referer', 'http://music.163.com/search/')
 
     user_agent_list = [
         'Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50',
