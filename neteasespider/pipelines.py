@@ -73,11 +73,10 @@ class NeteasespiderPipeline(object):
             print("错误: 插入数据失败，原因 %d, %s" % (err.args[0], err.args[1]))
 
     def process_lyrics_item(self, item):
-        if item['lyrics']:
-            path = os.path.join(LYRICS_PATH, item['artist_id'], item['music_id'] + '.lrc')
-            try:
-                os.makedirs(os.path.dirname(path))
-            except:
-                pass
-            with file(path, 'wb') as fp:
-                fp.write(item['lyrics'])
+        path = os.path.join(LYRICS_PATH, item['artist_id'], item['music_id'] + '.lrc')
+        try:
+            os.makedirs(os.path.dirname(path))
+        except:
+            pass
+        with file(path, 'wb') as fp:
+            fp.write(item['lyrics'])
