@@ -58,9 +58,9 @@ def download_file(url, path):
             fp.write(f.read())
 
     # handle errors
-    except urllib2.HTTPError, e:
+    except urllib2.HTTPError as e:
         print("HTTP Error: %d %s" % (e.code, url))
-    except urllib2.URLError, e:
+    except urllib2.URLError as e:
         print("URL Error: %s %s" % (e.reason, url))
 
 
@@ -70,7 +70,7 @@ def download_lrc(music_id, output):
     json_response = json.loads(response.read())
     if 'lrc' in json_response and 'lyric' in json_response['lrc']:
         lyrics = json_response['lrc']['lyric'].encode('utf-8')
-        with file(output, 'wb') as fp:
+        with open(output, 'wb') as fp:
             fp.write(lyrics)
 
 
