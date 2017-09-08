@@ -31,9 +31,8 @@ class RotateUserAgentMiddleware(UserAgentMiddleware):
         self.user_agent = user_agent
 
     def process_request(self, request, spider):
-        UA = random.choice(self.user_agent_list)
-        if UA:
-            request.headers.setdefault('User-Agent', UA)
+        self.user_agent = random.choice(self.user_agent_list)
+        request.headers.setdefault('User-Agent', self.user_agent)
         request.headers.setdefault('Referer', 'http://music.163.com/search/')
 
     user_agent_list = [

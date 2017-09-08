@@ -8,7 +8,7 @@ import os
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
 import mysql.connector
 
-from items import ArtistSpiderItem, AlbumSpiderItem, MusicSpiderItem, MusicLyricsSpiderItem
+from items import ArtistSpiderItem, AlbumSpiderItem, MusicSpiderItem, MusicLyricsSpiderItem, MusicFileSpiderItem
 from settings import LYRICS_PATH, DB_HOST, DB_NAME, DB_PASSWORD, DB_USER
 
 
@@ -37,6 +37,8 @@ class NeteasespiderPipeline(object):
             self.process_music_item(item)
         elif isinstance(item, MusicLyricsSpiderItem):
             self.process_lyrics_item(item)
+        elif isinstance(item, MusicFileSpiderItem):
+            self.process_music_file_item(item)
         return item
 
     def process_artist_item(self, item):
@@ -80,3 +82,14 @@ class NeteasespiderPipeline(object):
             pass
         with file(path, 'wb') as fp:
             fp.write(item['lyrics'])
+
+    def process_music_file_item(self, item):
+        sql = ("UPDATE music_info SET music_path=%s WHERE music_id=%s")
+        data = (item['files'][0]['path'], item['music_id'])
+        try:
+            result = self.cursor.execute(sql, data)
+            self.db.commit()
+            print('保存歌曲路径成功.')
+        except mysql.connector.Error as err:
+            self.db.rollback()
+            print("错误: 插入数据失败，原因 %d, %s" % (err.args[0], err.args[1]))

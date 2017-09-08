@@ -27,9 +27,9 @@ CONCURRENT_REQUESTS = 32
 # Configure a delay for requests for the same website (default: 0)
 # See http://scrapy.readthedocs.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
-DOWNLOAD_DELAY = 3
+DOWNLOAD_DELAY = 0.2
 # The download delay setting will honor only one of:
-CONCURRENT_REQUESTS_PER_DOMAIN = 2
+CONCURRENT_REQUESTS_PER_DOMAIN = 8
 #CONCURRENT_REQUESTS_PER_IP = 16
 
 # Disable cookies (enabled by default)
@@ -55,6 +55,7 @@ SPIDER_MIDDLEWARES = {
 DOWNLOADER_MIDDLEWARES = {
     'neteasespider.middlewares.RotateUserAgentMiddleware': 544,
     'neteasespider.middlewares.JavaScriptMiddleware': 543,
+    'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,
 }
 
 # Enable or disable extensions
@@ -68,6 +69,7 @@ EXTENSIONS = {
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
     'neteasespider.pipelines.NeteasespiderPipeline': 300,
+    'scrapy.pipelines.files.FilesPipeline': 1,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
@@ -91,10 +93,13 @@ ITEM_PIPELINES = {
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
-LOGSTATS_INTERVAL = 30.0
+MEDIA_ALLOW_REDIRECTS=True
 
+LOGSTATS_INTERVAL=30.0
+
+MUSIC_BITRATE=192000
 LYRICS_PATH='music/lyrics'
-MP3_PATH='music/mp3'
+FILES_STORE='music/mp3'
 
 DB_NAME='spiderdb'
 DB_HOST='127.0.0.1'

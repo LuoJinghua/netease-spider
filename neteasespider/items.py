@@ -15,12 +15,14 @@ class ArtistSpiderItem(scrapy.Item):
     gender = scrapy.Field()
     category = scrapy.Field()
 
+
 # album
 class AlbumSpiderItem(scrapy.Item):
     album_id = scrapy.Field()
     album_name = scrapy.Field()
     album_time = scrapy.Field()
     artist_id = scrapy.Field()
+
 
 # music
 class MusicSpiderItem(scrapy.Item):
@@ -29,9 +31,19 @@ class MusicSpiderItem(scrapy.Item):
     album_id = scrapy.Field()
     artist_id = scrapy.Field()
 
-#  lyrics
+
+# lyrics
 class MusicLyricsSpiderItem(scrapy.Item):
     music_id = scrapy.Field()
     album_id = scrapy.Field()
     artist_id = scrapy.Field()
     lyrics = scrapy.Field()
+
+
+# Music file
+class MusicFileSpiderItem(scrapy.Item):
+    music_id = scrapy.Field()
+    album_id = scrapy.Field()
+    artist_id = scrapy.Field()
+    file_urls = scrapy.Field()
+    files = scrapy.Field()
